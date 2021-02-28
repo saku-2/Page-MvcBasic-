@@ -1,0 +1,52 @@
+﻿@*@model IEnumerable<MvcBasic.Models.Member>*@
+@model MvcBasic.Models.Input
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Input</h2>
+
+@using (Html.BeginForm())
+{
+    <h3>DropDownList</h3>
+    @Html.DropDownListFor(
+      model => model.Str1,
+      (IEnumerable<SelectListItem>)ViewBag.SelectList,
+      " 選択してください "
+    )
+
+    <h3>ListBox</h3>
+    @Html.ListBoxFor(
+      model => model.Str2,
+      (IEnumerable<SelectListItem>)ViewBag.SelectList
+    )
+
+    <h3>EnumDropDownList</h3>
+    @Html.EnumDropDownListFor(model => model.Str3)
+
+    <h3>CheckBox</h3>
+    @Html.CheckBoxFor(
+      model => model.Boo
+    )
+    <label>Check</label>
+
+    <h3>RadioButton</h3>
+    @Html.RadioButtonFor(
+      model => model.Str4,
+      "RadioButton1"
+    )
+    <label>Radio1</label>
+    @Html.RadioButtonFor(
+      model => model.Str4,
+      "RadioButton2"
+    )
+    <label>Radio2</label>
+
+    <h3>Hidden</h3>
+    @Html.HiddenFor(
+      model => model.Str5
+    )
+
+    <input type="submit" />
+}

@@ -1,0 +1,67 @@
+﻿@*@model IEnumerable<MvcBasic.Models.Member>*@
+@using PagedList
+@using PagedList.Mvc
+@*@model PagedList.IPagedList<MvcBasic.Models.Member> // IPagedList型で渡す*@
+@model PagedList.IPagedList<MvcBasic.Models.Member>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<p>
+    @Html.ActionLink("正しい例：Go to ~/Input/Index/4", "Index", "Input")
+</p>
+@using (Html.BeginForm("Index", "Input"))
+{
+    @Html.AntiForgeryToken();
+
+    // テキストボックス等の入力項目の設定
+
+    <input type="submit" name="Search" value="複数のビュー機能へ">
+    <input type="submit" name="Clear" value="クリア">
+}
+@using (Html.BeginForm("Index", "InputList"))
+{
+    @Html.AntiForgeryToken();
+
+    // テキストボックス等の入力項目の設定
+
+    <input type="submit" name="ListBox" value="リストボックスへ">
+    <input type="submit" name="Clear" value="クリア">
+}
+<table class="table">
+    <tr>
+        <th>氏名</th>
+        <th>メールアドレス</th>
+        <th>誕生日</th>
+        <th>既婚</th>
+        <th>備考</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td id="name">@item.Name</td>
+            <td id="email">@item.Email</td>
+            <td>@item.Birth</td>
+            <td>@item.Married</td>
+            <td>@item.Memo</td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+// ページ番号表示
+@*@Html.PagedListPager(Model, page => Url.Action("Index", page))*@
+@*@Html.PagedListPager(Model, page => Url.Action("Index", "Table", page.ToString()))*@
+@Html.PagedListPager(Model, page => Url.Action("Index", "Table", new { id = page }))
+
+

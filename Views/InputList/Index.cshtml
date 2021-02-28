@@ -1,0 +1,63 @@
+﻿@*@model IEnumerable<MvcBasic.Models.Member>*@
+@model MvcBasic.Models.BaseModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@*@Scripts.Render("~/bundles/js");*@
+
+<h2>ListBox</h2>
+
+@{
+    @*var items = new List<SelectListItem>()
+        {
+                    new SelectListItem() {Value = "1", Text = "日曜日" },
+                    new SelectListItem() {Value = "2", Text = "月曜日" },
+                    new SelectListItem() {Value = "3", Text = "火曜日" , Selected = true},
+                    new SelectListItem() {Value = "4", Text = "水曜日" },
+                    new SelectListItem() {Value = "5", Text = "木曜日" },
+                    new SelectListItem() {Value = "6", Text = "金曜日" },
+                    new SelectListItem() {Value = "7", Text = "土曜日" },
+                };
+        }
+        DropDownList:
+        @Html.DropDownList("DropDownListID", items)
+
+        @Html.ListBox("ListBoxID", items)*@
+
+
+
+    @Html.ListBoxFor(model => model.UnSelectMember, (IEnumerable<SelectListItem>)Model.UnSelectMember, htmlAttributes: new { @class = "form-control Unselected-listbox change-retention", @size = "5" })
+    @*<div id="UnselectItem" class="hide">
+        @for (int i = 0; i < Model.UnSelectMember.Count(); i++)
+        {
+            if (Model.UnSelectedMemberKeyList[i].Equals(string.Empty)) { continue; }
+            @Html.HiddenFor(model => Model.UnSelectedMemberKeyList[i])
+            @Html.HiddenFor(model => Model.UnSelectedMemberValueList[i])
+        }
+    </div>*@
+
+
+    <input type="button" value="追加→" data-action="/InputList/Index" class="btn btn-default btn-block list-button" />
+    <input type="button" value="←削除" data-action="/InputList/Index" class="btn btn-default btn-block list-button" />
+
+
+    @Html.ListBoxFor(
+        model => model.SelectedMember,
+        (IEnumerable<SelectListItem>)Model.SelectedMember,
+        htmlAttributes: new { @class = "form-control selected-listbox change-retention", @size = "5" })
+
+    }
+<div id="selectedItem" class="hide">
+    @for (int i = 0; i < Model.SelectedMember.Count(); i++)
+    {
+        //if (Model.SelectedMemberKeyList[i].Equals(string.Empty)) { continue; }
+        @*if (String.IsNullOrWhiteSpace(Model.SelectedMemberKeyList[i]) ) { continue; }
+
+        @Html.HiddenFor(model => Model.SelectedMemberKeyList[i])
+        @Html.HiddenFor(model => Model.SelectedMemberValueList[i])*@
+    }
+</div>
+
+
